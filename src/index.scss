@@ -1,0 +1,14 @@
+// Fonts
+@import "/src/assets/fonts/roboto.scss";
+
+// Login
+@import "/src/assets/scss/login/index.scss";
+
+// Base
+body {
+  background-color: rgb(220, 220, 237);
+}
+
+#root {
+  min-height: 100vh;
+}
