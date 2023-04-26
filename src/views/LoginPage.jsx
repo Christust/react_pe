@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useState, useEffect } from "react";
 // Formik para construir formularios
 import { Formik } from "formik";
 
@@ -11,11 +11,17 @@ import { Box, Button, TextField, Card } from "@mui/material";
 
 // Redux User
 import { useDispatch } from "react-redux";
-import { setUser, getUser } from "../store/user/userSlice";
+import { setUser } from "../store/user/userSlice";
+import { getUser } from "../store/user/userSelectors";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const user = dispatch(getUser());
+  const [user, setUserState] = useState(getUser());
+
+  useEffect(() => {
+    // Actualiza el título del documento usando la API del navegador
+    setUserState(getUser());
+  }, [user]);
 
   // Generamos el valid schema con yup
   const loginSchema = Yup.object().shape({
@@ -36,6 +42,7 @@ const LoginPage = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         dispatch(setUser(res.data.user));
+        console.log(getUser());
       })
       .catch((error) => {
         console.error(error);
@@ -50,6 +57,7 @@ const LoginPage = () => {
   return (
     <div className="loginPage">
       {JSON.stringify(user)}
+      <button onClick={getUser}>log</button>
       <Card className="col-6 p-5">
         <Formik
           initialValues={initialValues}
