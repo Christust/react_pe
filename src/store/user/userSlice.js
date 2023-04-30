@@ -7,8 +7,6 @@ export const userSlice = createSlice({
   },
   reducers: {
     setUser: (state, action = null) => {
-      console.log("set");
-      console.log(action.payload);
       state.value = action.payload;
       if (action.payload) {
         localStorage.setItem("user-profile", JSON.stringify(action.payload));
