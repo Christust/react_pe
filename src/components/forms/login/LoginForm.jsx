@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // Formik para construir formularios
 import { Formik } from "formik";
@@ -9,7 +10,7 @@ import * as Yup from "yup";
 // Estilos de material
 import { Box, Button, TextField, Card } from "@mui/material";
 
-const LoginPage = () => {
+const LoginForm = () => {
   // Generamos el valid schema con yup
   const loginSchema = Yup.object().shape({
     username: Yup.string().required("El Usuario es requerido"),
@@ -101,4 +102,6 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+LoginForm.propTypes = {}
+
+export default LoginForm
