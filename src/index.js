@@ -3,8 +3,11 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 
 // Redux
-import store from "./store";
-import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import todoApp from "./reducers";
+
+let store = createStore(todoApp)
+
 
 // Api
 import authService from "./services/authService";
