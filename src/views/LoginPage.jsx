@@ -1,5 +1,8 @@
 import React from "react";
 
+// Sweet Alert
+import swal from "sweetalert";
+
 // Redux
 import { setUser } from "../store/user/actions";
 
@@ -45,13 +48,15 @@ let LoginPage = ({ user, setUserDispatch }) => {
     window.api
       .login(payload)
       .then((res) => {
+        swal({
+          title: "Credenciales correctas!",
+          icon: "success",
+        });
         localStorage.setItem("token", res.data.token);
-        console.log(user);
         setUserDispatch(res.data.user);
       })
       .catch((error) => {
-        console.log(user);
-        console.error(error);
+        swal("Error!", error.response.data.message, "error");
       });
   }
 
@@ -62,7 +67,6 @@ let LoginPage = ({ user, setUserDispatch }) => {
 
   return (
     <div className="loginPage">
-      {JSON.stringify(user)}
       <Card className="col-6 p-5">
         <Formik
           initialValues={initialValues}
