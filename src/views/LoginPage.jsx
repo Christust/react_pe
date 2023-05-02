@@ -1,5 +1,8 @@
 import React from "react";
 
+// Redux
+import { setUser } from "../store/user/actions";
+
 // Formik para construir formularios
 import { Formik } from "formik";
 
@@ -8,8 +11,23 @@ import * as Yup from "yup";
 
 // Estilos de material
 import { Box, Button, TextField, Card } from "@mui/material";
+import { connect } from "react-redux";
 
-const LoginPage = () => {
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserDispatch: (user) => {
+      dispatch(setUser(user));
+    },
+  };
+};
+
+let LoginPage = ({ user, setUserDispatch }) => {
   // Generamos el valid schema con yup
   const loginSchema = Yup.object().shape({
     username: Yup.string().required("El Usuario es requerido"),
@@ -28,8 +46,11 @@ const LoginPage = () => {
       .login(payload)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
+        console.log(user);
+        setUserDispatch(res.data.user);
       })
       .catch((error) => {
+        console.log(user);
         console.error(error);
       });
   }
@@ -41,6 +62,7 @@ const LoginPage = () => {
 
   return (
     <div className="loginPage">
+      {JSON.stringify(user)}
       <Card className="col-6 p-5">
         <Formik
           initialValues={initialValues}
@@ -100,5 +122,7 @@ const LoginPage = () => {
     </div>
   );
 };
+
+LoginPage = connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 export default LoginPage;

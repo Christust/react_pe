@@ -1,19 +1,14 @@
-import { SET_USER } from "./actions";
+import { SET_USER, GET_USER } from "./actions";
 
-const initialState = {
-  user: null,
-};
+const initialState = null;
 
 const user = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      return Object.assign({}, state, {
-        user: action.user,
-      });
-
+      return Object.assign({}, state, action.user);
     default:
       return state;
   }
 };
 
-return user;
+export default user;

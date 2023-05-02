@@ -20,6 +20,18 @@ import App from "./App";
 import ErrorPage from "./views/ErrorPage";
 import LoginPage from "./views/LoginPage";
 
+// Redux
+import store from "./store";
+import { Provider } from "react-redux";
+
+store.subscribe(() => {
+  const state = store.getState();
+  console.log(state);
+  if (state) {
+    localStorage.setItem("state", JSON.stringify(state));
+  }
+});
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,7 +47,11 @@ const router = createBrowserRouter([
 window.api = authService;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />);
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
