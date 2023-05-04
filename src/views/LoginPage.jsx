@@ -115,6 +115,7 @@ let LoginPage = ({ user, loader, setUserDispatch }) => {
           }}
         </Formik>
       </Card>
+      {loader.count}
       {/* TODO: Loader */}
       {loader.count > 0 && <Loader />}
     </div>

@@ -10,7 +10,7 @@ const loader = (state = initialState, action) => {
       const newCount = state.count + action.count;
       console.log(newCount >= 0);
       if (newCount >= 0) {
-        return Object.assign({}, state, action.count);
+        return Object.assign({}, state, { count: newCount });
       }
       return state;
     default:
