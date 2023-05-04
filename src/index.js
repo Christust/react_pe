@@ -14,6 +14,7 @@ import "./index.scss";
 
 // Router
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 // Routes
 import App from "./App";
@@ -23,6 +24,8 @@ import LoginPage from "./views/LoginPage";
 // Redux
 import store from "./store";
 import { Provider } from "react-redux";
+
+let token = localStorage.getItem("token");
 
 store.subscribe(() => {
   const state = store.getState();
@@ -40,7 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
-    element: <LoginPage />,
+    element: token ? <Navigate to={"/"} /> : <LoginPage />,
   },
 ]);
 

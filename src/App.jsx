@@ -1,6 +1,6 @@
 import * as React from "react";
 import Loader from "./components/loader/Loader";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/navigation/NavBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 export default function App() {
