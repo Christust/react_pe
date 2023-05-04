@@ -1,10 +1,10 @@
 import React from "react";
 
-// Sweet Alert
-import swal from "sweetalert";
+// Loader
+import Loader from "../components/loader/Loader";
 
 // Redux
-import { setUser } from "../store/user/actions";
+import { setUser } from "../store/reducers/user/actions";
 
 // Formik para construir formularios
 import { Formik } from "formik";
@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    loader: state.loader,
   };
 };
 
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-let LoginPage = ({ user, setUserDispatch }) => {
+let LoginPage = ({ user, loader, setUserDispatch }) => {
   // Generamos el valid schema con yup
   const loginSchema = Yup.object().shape({
     username: Yup.string().required("El Usuario es requerido"),
@@ -45,19 +46,10 @@ let LoginPage = ({ user, setUserDispatch }) => {
 
   // Funcion que maneja el submit
   function login(payload) {
-    window.api
-      .login(payload)
-      .then((res) => {
-        swal({
-          title: "Credenciales correctas!",
-          icon: "success",
-        });
-        localStorage.setItem("token", res.data.token);
-        setUserDispatch(res.data.user);
-      })
-      .catch((error) => {
-        swal("Error!", error.response.data.message, "error");
-      });
+    window.api.login(payload).then((res) => {
+      localStorage.setItem("token", res.data.token);
+      setUserDispatch(res.data.user);
+    });
   }
 
   // Validar Form
@@ -123,6 +115,8 @@ let LoginPage = ({ user, setUserDispatch }) => {
           }}
         </Formik>
       </Card>
+      {/* TODO: Loader */}
+      {loader.count > 0 && <Loader />}
     </div>
   );
 };
