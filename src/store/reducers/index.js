@@ -1,6 +1,5 @@
-import user from "./user/reducer";
-import loader from "./loader/reducer";
-
+import user from "./user/userSlice";
+import loader from "./loader/loaderSlice";
 let reducers = { user, loader };
 
 const loadState = () => {

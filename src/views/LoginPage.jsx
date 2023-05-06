@@ -1,7 +1,8 @@
 import React from "react";
 
 // Redux
-import { setUser } from "../store/reducers/user/actions";
+import { setUser } from "../store/reducers/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 // Formik para construir formularios
 import { Formik } from "formik";
@@ -11,27 +12,13 @@ import * as Yup from "yup";
 
 // Estilos de material
 import { Box, Button, TextField, Card } from "@mui/material";
-import { connect } from "react-redux";
 
 // Router
 import { useNavigate } from "react-router-dom";
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    loader: state.loader,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserDispatch: (user) => {
-      dispatch(setUser(user));
-    },
-  };
-};
-
-let LoginPage = ({ user, loader, setUserDispatch }) => {
+let LoginPage = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   // Generamos el valid schema con yup
   const loginSchema = Yup.object().shape({
@@ -49,7 +36,8 @@ let LoginPage = ({ user, loader, setUserDispatch }) => {
   function login(payload) {
     window.api.login(payload).then((res) => {
       localStorage.setItem("token", res.data.token);
-      setUserDispatch(res.data.user);
+      console.log(res);
+      dispatch(setUser(res.data.user));
       navigate("/");
     });
   }
@@ -120,7 +108,5 @@ let LoginPage = ({ user, loader, setUserDispatch }) => {
     </div>
   );
 };
-
-LoginPage = connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 export default LoginPage;

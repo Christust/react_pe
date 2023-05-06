@@ -51,17 +51,6 @@ const router = createBrowserRouter(
       />
     </Route>
   )
-  // [
-  //   {
-  //     path: "/",
-  //     element: <App />,
-  //     errorElement: <ErrorPage />,
-  //   },
-  //   {
-  //     path: "login",
-  //     element: token ? <Navigate to={"/"} /> : <LoginPage />,
-  //   },
-  // ]
 );
 
 window.api = authService;
