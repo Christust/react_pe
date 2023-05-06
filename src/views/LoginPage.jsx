@@ -1,8 +1,5 @@
 import React from "react";
 
-// Loader
-import Loader from "../components/loader/Loader";
-
 // Redux
 import { setUser } from "../store/reducers/user/actions";
 
@@ -15,6 +12,9 @@ import * as Yup from "yup";
 // Estilos de material
 import { Box, Button, TextField, Card } from "@mui/material";
 import { connect } from "react-redux";
+
+// Router
+import { useNavigate } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -32,6 +32,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 let LoginPage = ({ user, loader, setUserDispatch }) => {
+  const navigate = useNavigate();
   // Generamos el valid schema con yup
   const loginSchema = Yup.object().shape({
     username: Yup.string().required("El Usuario es requerido"),
@@ -49,6 +50,7 @@ let LoginPage = ({ user, loader, setUserDispatch }) => {
     window.api.login(payload).then((res) => {
       localStorage.setItem("token", res.data.token);
       setUserDispatch(res.data.user);
+      navigate("/");
     });
   }
 
@@ -115,8 +117,6 @@ let LoginPage = ({ user, loader, setUserDispatch }) => {
           }}
         </Formik>
       </Card>
-      {/* TODO: Loader */}
-      {loader.count > 0 && <Loader />}
     </div>
   );
 };

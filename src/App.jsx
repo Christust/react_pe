@@ -1,24 +1,13 @@
 import * as React from "react";
 import Loader from "./components/loader/Loader";
-import NavBar from "./components/navigation/NavBar";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Outlet } from "react-router-dom";
 
 export default function App() {
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#1976d2",
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={darkTheme}>
-      <NavBar />
-      <main></main>
+    <div>
+      <Outlet />
       {/* TODO: Loader */}
       {false && <Loader />}
-    </ThemeProvider>
+    </div>
   );
 }

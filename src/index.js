@@ -13,13 +13,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.scss";
 
 // Router
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 // Routes
 import App from "./App";
 import ErrorPage from "./views/ErrorPage";
 import LoginPage from "./views/LoginPage";
+import DashboardPage from "./views/DashboardPage";
 
 // Redux
 import store from "./store";
@@ -35,17 +41,28 @@ store.subscribe(() => {
   }
 });
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "login",
-    element: token ? <Navigate to={"/"} /> : <LoginPage />,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />} errorElement={<ErrorPage />}>
+      <Route index element={<DashboardPage />} />
+      <Route
+        path="login"
+        element={token ? <Navigate to={"/"} /> : <LoginPage />}
+      />
+    </Route>
+  )
+  // [
+  //   {
+  //     path: "/",
+  //     element: <App />,
+  //     errorElement: <ErrorPage />,
+  //   },
+  //   {
+  //     path: "login",
+  //     element: token ? <Navigate to={"/"} /> : <LoginPage />,
+  //   },
+  // ]
+);
 
 window.api = authService;
 
