@@ -8,7 +8,6 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  console.log(config);
   store.dispatch(setLoaderCount(+1));
   return config;
 });
@@ -20,6 +19,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     store.dispatch(setLoaderCount(-1));
+    console.log(error);
     swal("Error!", error.response.data.message, "error");
     return error;
   }

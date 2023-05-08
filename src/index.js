@@ -21,6 +21,9 @@ import {
 } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
+// Guard
+import GuardComponent from "./components/guard/GuardComponent";
+
 // Routes
 import App from "./App";
 import ErrorPage from "./views/ErrorPage";
@@ -31,11 +34,8 @@ import DashboardPage from "./views/DashboardPage";
 import store from "./store";
 import { Provider } from "react-redux";
 
-let token = localStorage.getItem("token");
-
 store.subscribe(() => {
   const state = store.getState();
-  console.log(state);
   if (state) {
     localStorage.setItem("state", JSON.stringify(state));
   }
@@ -44,10 +44,15 @@ store.subscribe(() => {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<ErrorPage />}>
-      <Route index element={<DashboardPage />} />
+      <Route
+        index
+        element={<GuardComponent children={<DashboardPage />}></GuardComponent>}
+      />
       <Route
         path="login"
-        element={token ? <Navigate to={"/"} /> : <LoginPage />}
+        element={
+          store.getState().user.token ? <Navigate to={"/"} /> : <LoginPage />
+        }
       />
     </Route>
   )

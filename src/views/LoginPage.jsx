@@ -1,7 +1,7 @@
 import React from "react";
 
 // Redux
-import { setUser } from "../store/reducers/user/userSlice";
+import { setUser, setToken } from "../store/reducers/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // Formik para construir formularios
@@ -34,12 +34,16 @@ let LoginPage = () => {
 
   // Funcion que maneja el submit
   function login(payload) {
-    window.api.login(payload).then((res) => {
-      localStorage.setItem("token", res.data.token);
-      console.log(res);
-      dispatch(setUser(res.data.user));
-      navigate("/");
-    });
+    window.api
+      .login(payload)
+      .then((res) => {
+        dispatch(setUser(res.data.user));
+        dispatch(setToken(res.data.token));
+      })
+      .finally(() => {
+        alert("fin");
+        navigate("/");
+      });
   }
 
   // Validar Form

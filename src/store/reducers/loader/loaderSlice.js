@@ -7,7 +7,6 @@ export const loaderSlice = createSlice({
   },
   reducers: {
     setLoaderCount: (state, action) => {
-      console.log(action);
       const newCount = state.count + action.payload;
       if (newCount >= 0) {
         state.count = newCount;
