@@ -34,16 +34,11 @@ let LoginPage = () => {
 
   // Funcion que maneja el submit
   function login(payload) {
-    window.api
-      .login(payload)
-      .then((res) => {
-        dispatch(setUser(res.data.user));
-        dispatch(setToken(res.data.token));
-      })
-      .finally(() => {
-        alert("fin");
-        navigate("/");
-      });
+    window.api.login(payload).then((res) => {
+      dispatch(setUser(res.data.user));
+      dispatch(setToken(res.data.token));
+      navigate("/");
+    });
   }
 
   // Validar Form
