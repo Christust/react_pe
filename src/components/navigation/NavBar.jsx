@@ -35,14 +35,10 @@ export default function NavBar() {
   };
 
   function logout() {
-    window.api
-      .logout({ token })
-      .then((res) => {
-        dispatch(setToken());
-      })
-      .finally(() => {
-        navigate("/login");
-      });
+    window.api.logout({ token }).then((res) => {
+      dispatch(setToken());
+      navigate("/login");
+    });
   }
 
   return (

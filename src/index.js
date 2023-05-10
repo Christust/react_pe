@@ -23,6 +23,7 @@ import { Navigate } from "react-router-dom";
 
 // Guard
 import GuardComponent from "./components/guard/GuardComponent";
+import AuthenticatedComponent from "./components/guard/AuthenticatedComponent";
 
 // Routes
 import App from "./App";
@@ -51,7 +52,9 @@ const router = createBrowserRouter(
       <Route
         path="login"
         element={
-          store.getState().user.token ? <Navigate to={"/"} /> : <LoginPage />
+          <AuthenticatedComponent
+            children={<LoginPage />}
+          ></AuthenticatedComponent>
         }
       />
     </Route>
