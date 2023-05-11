@@ -8,7 +8,6 @@ export default function App() {
   return (
     <div>
       <Outlet />
-      {/* TODO: Loader */}
       {loader > 0 && <Loader />}
     </div>
   );

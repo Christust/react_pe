@@ -18,8 +18,8 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Routes,
 } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 
 // Guard
 import GuardComponent from "./components/guard/GuardComponent";
@@ -30,10 +30,14 @@ import App from "./App";
 import ErrorPage from "./views/ErrorPage";
 import LoginPage from "./views/LoginPage";
 import DashboardPage from "./views/DashboardPage";
+import HomePage from "./views/HomePage";
 
 // Redux
 import store from "./store";
 import { Provider } from "react-redux";
+
+// Material
+import { MaterialUIProvider } from "./providers/MaterialUIContext";
 
 store.subscribe(() => {
   const state = store.getState();
@@ -65,9 +69,11 @@ window.api = authService;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <RouterProvider router={router} />
-  </Provider>
+  <MaterialUIProvider>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </MaterialUIProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

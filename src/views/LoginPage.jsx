@@ -11,12 +11,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 // Estilos de material
-import { Box, Button, TextField, Card } from "@mui/material";
+import { MaterialUIContext } from "../providers/MaterialUIContext";
 
 // Router
 import { useNavigate } from "react-router-dom";
 
 let LoginPage = () => {
+  const components = React.useContext(MaterialUIContext);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ let LoginPage = () => {
 
   return (
     <div className="loginPage">
-      <Card className="col-6 p-5">
+      <components.Card className="col-6 p-5">
         <Formik
           initialValues={initialValues}
           validationSchema={loginSchema}
@@ -68,12 +69,12 @@ let LoginPage = () => {
             } = props;
 
             return (
-              <Box
+              <components.Box
                 className="row justify-content-center"
                 component={"form"}
                 onSubmit={handleSubmit}
               >
-                <TextField
+                <components.TextField
                   className="mb-3"
                   error={errors.username && touched.username}
                   label="Usuario"
@@ -81,8 +82,8 @@ let LoginPage = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   helperText={errors.username}
-                ></TextField>
-                <TextField
+                ></components.TextField>
+                <components.TextField
                   className="mb-3"
                   error={errors.password && touched.password}
                   label="Contraseña"
@@ -91,19 +92,19 @@ let LoginPage = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   helperText={errors.password}
-                ></TextField>
-                <Button
+                ></components.TextField>
+                <components.Button
                   disabled={validForm(isInitialValid, dirty, isValid)}
                   variant="contained"
                   type="submit"
                 >
                   Enviar
-                </Button>
-              </Box>
+                </components.Button>
+              </components.Box>
             );
           }}
         </Formik>
-      </Card>
+      </components.Card>
     </div>
   );
 };

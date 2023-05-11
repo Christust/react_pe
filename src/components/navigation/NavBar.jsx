@@ -1,22 +1,9 @@
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { MaterialUIContext } from "../../providers/MaterialUIContext";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import LogoutIcon from "@mui/icons-material/Logout";
+
 import { setToken } from "../../store/reducers/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -89,6 +76,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer({ output }) {
+  const components = React.useContext(MaterialUIContext);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -112,11 +100,11 @@ export default function MiniDrawer({ output }) {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+    <components.Box sx={{ display: "flex" }}>
+      <components.CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
+        <components.Toolbar>
+          <components.IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -126,58 +114,61 @@ export default function MiniDrawer({ output }) {
               ...(open && { display: "none" }),
             }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
+            <components.MenuIcon />
+          </components.IconButton>
+          <components.Typography variant="h6" noWrap component="div">
             Moderatorem
-          </Typography>
-        </Toolbar>
+          </components.Typography>
+        </components.Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <components.IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
+              <components.ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon />
+              <components.ChevronLeftIcon />
             )}
-          </IconButton>
+          </components.IconButton>
         </DrawerHeader>
-        <Divider />
-        <List></List>
-        <Divider />
-        <List>
-          <ListItem
+        <components.Divider />
+        <components.List></components.List>
+        <components.Divider />
+        <components.List>
+          <components.ListItem
             onClick={logout}
             key={"Logout"}
             disablePadding
             sx={{ display: "block" }}
           >
-            <ListItemButton
+            <components.ListItemButton
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
               }}
             >
-              <ListItemIcon
+              <components.ListItemIcon
                 sx={{
                   minWidth: 0,
                   mr: open ? 3 : "auto",
                   justifyContent: "center",
                 }}
               >
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Logout"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        </List>
+                <components.LogoutIcon />
+              </components.ListItemIcon>
+              <components.ListItemText
+                primary={"Logout"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </components.ListItemButton>
+          </components.ListItem>
+        </components.List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <components.Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {output}
-      </Box>
-    </Box>
+      </components.Box>
+    </components.Box>
   );
 }
