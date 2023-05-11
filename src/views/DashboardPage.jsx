@@ -15,10 +15,7 @@ const DashboardPage = () => {
   });
   return (
     <ThemeProvider theme={darkTheme}>
-      <NavBar />
-      <main>
-        <Outlet />
-      </main>
+      <NavBar output={<Outlet />} />
     </ThemeProvider>
   );
 };
