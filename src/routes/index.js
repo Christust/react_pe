@@ -15,7 +15,7 @@ import HomePage from "../views/HomePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <GuardComponent children={<App />} />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -30,7 +30,11 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
-    element: <LoginPage />,
+    element: (
+      <AuthenticatedComponent>
+        <LoginPage />
+      </AuthenticatedComponent>
+    ),
     errorElement: <ErrorPage />,
   },
 ]);
