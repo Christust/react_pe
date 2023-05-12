@@ -1,12 +1,14 @@
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import { MaterialUIContext } from "../../providers/MaterialUIContext";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 
 import { setToken } from "../../store/reducers/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
+import { MaterialUIContext } from "../../providers/MaterialUIContext";
+import navbarIcons from "../../constants/navigation";
 
 const drawerWidth = 240;
 
@@ -132,7 +134,40 @@ export default function MiniDrawer({ output }) {
           </components.IconButton>
         </DrawerHeader>
         <components.Divider />
-        <components.List></components.List>
+        <components.List>
+          {navbarIcons.map((navbarOption) => {
+            return (
+              <components.ListItem
+                onClick={() => navigate(navbarOption.route)}
+                key={navbarOption.text}
+                disablePadding
+                sx={{ display: "block" }}
+              >
+                <components.ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <components.ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {navbarOption.icon}
+                  </components.ListItemIcon>
+                  <components.ListItemText
+                    primary={navbarOption.text}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </components.ListItemButton>
+              </components.ListItem>
+            );
+          })}
+        </components.List>
         <components.Divider />
         <components.List>
           <components.ListItem

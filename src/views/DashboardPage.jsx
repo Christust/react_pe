@@ -5,18 +5,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import NavBar from "../components/navigation/NavBar";
 
 const DashboardPage = () => {
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#1976d2",
-      },
-    },
-  });
   return (
-    <ThemeProvider theme={darkTheme}>
-      <NavBar output={<Outlet />} />
-    </ThemeProvider>
+    <div>
+      <h1>Dashboard</h1>
+    </div>
   );
 };
 

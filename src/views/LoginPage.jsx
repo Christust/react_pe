@@ -1,5 +1,8 @@
 import React from "react";
 
+// Loader
+import Loader from "../components/loader/Loader";
+
 // Redux
 import { setUser, setToken } from "../store/reducers/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +23,7 @@ let LoginPage = () => {
   const components = React.useContext(MaterialUIContext);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const loader = useSelector((state) => state.loader.count);
   const navigate = useNavigate();
   // Generamos el valid schema con yup
   const loginSchema = Yup.object().shape({
@@ -105,6 +109,7 @@ let LoginPage = () => {
           }}
         </Formik>
       </components.Card>
+      {loader > 0 && <Loader />}
     </div>
   );
 };
