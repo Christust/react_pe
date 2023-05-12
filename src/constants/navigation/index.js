@@ -3,7 +3,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 
 const navbarIcons = [
   { icon: <HomeIcon />, text: "Home", route: "/" },
-  { icon: <DashboardIcon />, text: "Dashboard", route: "dashboard" },
+  { icon: <DashboardIcon />, text: "Dashboard", route: "/dashboard" },
 ];
 
 export default navbarIcons;

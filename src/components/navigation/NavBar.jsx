@@ -4,7 +4,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 
 import { setToken } from "../../store/reducers/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { MaterialUIContext } from "../../providers/MaterialUIContext";
@@ -85,6 +85,7 @@ export default function MiniDrawer({ output }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.user.token);
+  const location = useLocation();
 
   function logout() {
     window.api.logout({ token }).then((res) => {
@@ -138,6 +139,7 @@ export default function MiniDrawer({ output }) {
           {navbarIcons.map((navbarOption) => {
             return (
               <components.ListItem
+                selected={location.pathname === navbarOption.route}
                 onClick={() => navigate(navbarOption.route)}
                 key={navbarOption.text}
                 disablePadding
