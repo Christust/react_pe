@@ -23,6 +23,22 @@ import { MaterialUIProvider } from "./providers/MaterialUIContext";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAUfKa0ASctRFiAWnkSDl9WW-hLnQmVbVg",
+  authDomain: "react-js-a9aca.firebaseapp.com",
+  projectId: "react-js-a9aca",
+  storageBucket: "react-js-a9aca.appspot.com",
+  messagingSenderId: "624610062945",
+  appId: "1:624610062945:web:d1ad4f27ae6e7aa2b4f020"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 store.subscribe(() => {
   const state = store.getState();
   if (state) {
