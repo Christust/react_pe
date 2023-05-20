@@ -4,7 +4,7 @@ import store from "../../store";
 import { setLoaderCount } from "../../store/reducers/loader/loaderSlice";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "https://moderatorem.pythonanywhere.com/",
   timeout: 5000,
 });
 
