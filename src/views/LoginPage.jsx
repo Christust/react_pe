@@ -4,7 +4,11 @@ import React from "react";
 import Loader from "../components/loader/Loader";
 
 // Redux
-import { setUser, setToken } from "../store/reducers/user/userSlice";
+import {
+  setUser,
+  setToken,
+  setRefreshToken,
+} from "../store/reducers/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // Formik para construir formularios
@@ -42,6 +46,7 @@ let LoginPage = () => {
     window.api.login(payload).then((res) => {
       dispatch(setUser(res.data.user));
       dispatch(setToken(res.data.token));
+      dispatch(setRefreshToken(res.data.refresh_token));
       navigate("/");
     });
   }
