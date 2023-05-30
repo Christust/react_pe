@@ -84,11 +84,11 @@ export default function MiniDrawer({ output }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.user.profile.id);
+  const refreshToken = useSelector((state) => state.user.refreshToken);
   const location = useLocation();
 
   function logout() {
-    window.api.logout({ user: userId }).then((res) => {
+    window.api.logout({ refresh_token: refreshToken }).then(() => {
       dispatch(setToken());
       navigate("/login");
     });
